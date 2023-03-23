@@ -15,9 +15,8 @@ class CSVLogger():
         self.startDateTime = datetime.now().strftime("%d-%m-%Y_%H.%M")
         self.fieldNames = ['x', 'y', 'time']
         self.sps = sps
-
-    def startLogger(self) -> None:
-        self.csvFile = open(f'gazeData_{self.startDateTime}_{pag.size().width}x{pag.size().height}.csv', mode='w', newline='')
+        self.filename = f'data/gazeData_{self.startDateTime}_{pag.size().width}x{pag.size().height}.csv'
+        self.csvFile = open(self.filename, mode='w', newline='')
         self.writer = csv.DictWriter(self.csvFile, fieldnames=self.fieldNames)
         self.writer.writeheader()
 
@@ -30,7 +29,7 @@ class CSVLogger():
         }
         self.writer.writerow(row)
 
-    def __del__(self) -> None:
+    def closeFile(self) -> None:
         self.csvFile.close()
         
 
