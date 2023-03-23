@@ -33,3 +33,15 @@ class CSVLogger():
     def __del__(self) -> None:
         self.csvFile.close()
         
+
+if __name__ == "__main__":
+    logger = CSVLogger()
+    # buffer to give the user enough time to start the game
+    time.sleep(5)
+    logger.startLogger()
+
+    while True:
+        try:
+            logger.logCoordinates()
+        except KeyboardInterrupt:
+            break
