@@ -7,10 +7,12 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import pyautogui as pag
 
-df = pd.read_csv('gazeData_23-03-2023_16.40.csv')
+df = pd.read_csv('data/gazeData_23-03-2023_17.23_1920x1080.csv')
 fig, ax = plt.subplots()
+img = mpimg.imread('data/screen.PNG')
 
 ax.set_xlim(pag.size().width)
 ax.set_ylim(pag.size().height)
@@ -24,6 +26,12 @@ kde = sns.kdeplot(
     alpha=0.4,
     n_levels=15,
     cmap='magma',
-    cbar=True
+    cbar=True,
+    ax=ax
 )
+
+plt.imshow(img,
+          aspect = kde.get_aspect(),
+          extent = kde.get_xlim() + kde.get_ylim(),
+          zorder = 0)
 plt.show()
