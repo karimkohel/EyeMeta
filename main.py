@@ -27,5 +27,5 @@ if __name__ == "__main__":
             logger.closeFile()
             break
 
-    mapper = HeatMapGenerator(logger.filename, 'data/screen.PNG')
+    mapper = HeatMapGenerator(logger.filepath, 'data/screen.PNG')
     mapper.generateHeatMap()

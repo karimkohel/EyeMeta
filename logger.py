@@ -1,5 +1,5 @@
 import pyautogui as pag
-import csv, time
+import csv, time, os
 from datetime import datetime
 
 
@@ -15,8 +15,15 @@ class CSVLogger():
         self.startDateTime = datetime.now().strftime("%d-%m-%Y_%H.%M")
         self.fieldNames = ['x', 'y', 'time']
         self.sps = sps
-        self.filename = f'data/gazeData_{self.startDateTime}_{pag.size().width}x{pag.size().height}.csv'
-        self.csvFile = open(self.filename, mode='w', newline='')
+
+        self.folderName = f'data/data_folder{self.startDateTime}_{pag.size().width}x{pag.size().height}'
+        self.filepath = f'{self.folderName}/gazeData_{self.startDateTime}_{pag.size().width}x{pag.size().height}.csv'
+        try:
+            os.mkdir(self.folderName)
+        except FileExistsError:
+            pass
+
+        self.csvFile = open(self.filepath, mode='w', newline='')
         self.writer = csv.DictWriter(self.csvFile, fieldnames=self.fieldNames)
         self.writer.writeheader()
 
