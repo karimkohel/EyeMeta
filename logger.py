@@ -17,7 +17,7 @@ class CSVLogger():
         self.sps = sps
 
     def startLogger(self) -> None:
-        self.csvFile = open(f'gazeData_{self.startDateTime}.csv', mode='w', newline='')
+        self.csvFile = open(f'gazeData_{self.startDateTime}_{pag.size().width}x{pag.size().height}.csv', mode='w', newline='')
         self.writer = csv.DictWriter(self.csvFile, fieldnames=self.fieldNames)
         self.writer.writeheader()
 
@@ -35,9 +35,9 @@ class CSVLogger():
         
 
 if __name__ == "__main__":
-    logger = CSVLogger()
+    logger = CSVLogger(5)
     # buffer to give the user enough time to start the game
-    time.sleep(5)
+    time.sleep(1)
     logger.startLogger()
 
     while True:
