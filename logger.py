@@ -22,7 +22,7 @@ class CSVLogger():
         self.writer.writeheader()
 
     def logCoordinates(self) -> None:
-        time.sleep(1/sps)
+        time.sleep(1/self.sps)
         row = {
             self.fieldNames[0]: pag.position().x,
             self.fieldNames[1]: pag.position().y,
