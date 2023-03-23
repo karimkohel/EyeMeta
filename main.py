@@ -7,14 +7,23 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import pyautogui as pag
 
 df = pd.read_csv('gazeData_23-03-2023_16.40.csv')
+fig, ax = plt.subplots()
+
+ax.set_xlim(pag.size().width)
+ax.set_ylim(pag.size().height)
+ax.invert_xaxis()
 
 kde = sns.kdeplot(
     x=df['x'],
     y=df['y'],
     fill=True,
     thresh=0.05,
+    alpha=0.4,
+    n_levels=15,
+    cmap='magma',
+    cbar=True
 )
-kde.invert_yaxis()
 plt.show()
