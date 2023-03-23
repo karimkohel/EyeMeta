@@ -4,34 +4,28 @@
 # generate heatmap with seaborn sns.kdeplot
 # figure out what more statistics do we need
 
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import pyautogui as pag
+# params to adjust by testing with tracker:
+#   - Sample resolution: the amount of samples we get per second in the logger
+#   - get the image of gameplay to overlay under heatmap
+#   - location of ai tool vs game space to divide the screen
 
-df = pd.read_csv('data/gazeData_23-03-2023_17.23_1920x1080.csv')
-fig, ax = plt.subplots()
-img = mpimg.imread('data/screen.PNG')
 
-ax.set_xlim(pag.size().width)
-ax.set_ylim(pag.size().height)
-ax.invert_xaxis()
+if __name__ == "__main__":
+    
+    from logger import CSVLogger
+    from heatmap import HeatMapGenerator
+    import time
 
-kde = sns.kdeplot(
-    x=df['x'],
-    y=df['y'],
-    fill=True,
-    thresh=0.05,
-    alpha=0.4,
-    n_levels=15,
-    cmap='magma',
-    cbar=True,
-    ax=ax
-)
+    logger = CSVLogger(5)
+    # buffer to give the user enough time to start the game
+    time.sleep(1)
 
-plt.imshow(img,
-          aspect = kde.get_aspect(),
-          extent = kde.get_xlim() + kde.get_ylim(),
-          zorder = 0)
-plt.show()
+    while True:
+        try:
+            logger.logCoordinates()
+        except KeyboardInterrupt:
+            logger.closeFile()
+            break
+
+    mapper = HeatMapGenerator(logger.filename, 'data/screen.PNG')
+    mapper.generateHeatMap()
