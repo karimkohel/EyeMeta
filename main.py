@@ -33,31 +33,34 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import DBSCAN, KMeans
 
 # Load the data from a CSV file
-df = pd.read_csv('data/data_folder29-03-2023_17.11_1920x1080/gazeData_29-03-2023_17.11_1920x1080.csv')
+df = pd.read_csv('data/data_folder29-03-2023_22.35_1920x1080/gazeData_29-03-2023_22.35_1920x1080.csv')
 
-# Specify the minimum distance between points to be considered part of the same cluster
-eps = 100
+# # Specify the minimum distance between points to be considered part of the same cluster
+# eps = 100
 
-# Specify the minimum number of points required to form a cluster
-min_samples = 2
+# # Specify the minimum number of points required to form a cluster
+# min_samples = 2
 
-# Apply DBSCAN clustering to group the points into clusters
-dbscan = DBSCAN(eps=eps, min_samples=min_samples)
-clusters = dbscan.fit_predict(df[['x', 'y']])
+# # Apply DBSCAN clustering to group the points into clusters
+# dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+# clusters = dbscan.fit_predict(df[['x', 'y']])
 
-# Plot the sequence of clusters with lines between each cluster
-fig, ax = plt.subplots(figsize=(8, 6))
-for i in np.unique(clusters):
-    cluster_points = df.loc[clusters == i, ['x', 'y']].values
-    ax.plot(cluster_points[:, 0], cluster_points[:, 1], '-o', label=f'Cluster {i}')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title('Sequence of clusters')
-plt.legend()
+
+sil_score_max = -1 #this is the minimum possible score
+
+for n_clusters in range(2,20):
+  model = KMeans(n_clusters = n_clusters, init='k-means++', max_iter=100, n_init=1)
+  labels = model.fit_predict(X)
+  sil_score = silhouette_score(X, labels)
+  print("The average silhouette score for %i clusters is %0.2f" %(n_clusters,sil_score))
+  if sil_score > sil_score_max:
+    sil_score_max = sil_score
+    best_n_clusters = n_clusters
+
+
+plt.scatter(df['x'], df['y'], c=clusters)
+plt.tight_layout()
 plt.show()
-
-
-# ASK FAWZY
