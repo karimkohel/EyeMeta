@@ -58,3 +58,6 @@ plt.ylabel('Y')
 plt.title('Sequence of clusters')
 plt.legend()
 plt.show()
+
+
+# ASK FAWZY
