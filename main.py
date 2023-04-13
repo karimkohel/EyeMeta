@@ -10,57 +10,61 @@
 #   - location of ai tool vs game space to divide the screen
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
     
-#     from logger import CSVLogger
-#     from heatmap import HeatMapGenerator
-#     import time
+    from classes.logger import CSVLogger
+    from classes.heatmap import HeatMapGenerator
+    import time
 
-#     logger = CSVLogger(5)
-#     # buffer to give the user enough time to start the game
-#     time.sleep(1)
+    logger = CSVLogger(5)
+    # buffer to give the user enough time to start the game
+    time.sleep(1)
 
-#     while True:
-#         try:
-#             logger.logCoordinates()
-#         except KeyboardInterrupt:
-#             logger.closeFile()
-#             break
+    while True:
+        try:
+            logger.logCoordinates()
+        except KeyboardInterrupt:
+            logger.closeFile()
+            break
 
-#     mapper = HeatMapGenerator(logger.filepath, 'data/screen.PNG')
-#     mapper.generateHeatMap()
+    #### To generate heatmap
+    # mapper = HeatMapGenerator(logger.filepath, 'data/screen.PNG')
+    # mapper.generateHeatMap()
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.cluster import DBSCAN, KMeans
+    #### To Generate fixation sequences
+    # TODO
 
-# Load the data from a CSV file
-df = pd.read_csv('data/data_folder29-03-2023_22.35_1920x1080/gazeData_29-03-2023_22.35_1920x1080.csv')
+# import pandas as pd
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from sklearn.cluster import DBSCAN, KMeans
 
-# # Specify the minimum distance between points to be considered part of the same cluster
-# eps = 100
+# # Load the data from a CSV file
+# df = pd.read_csv('data/data_folder29-03-2023_22.35_1920x1080/gazeData_29-03-2023_22.35_1920x1080.csv')
 
-# # Specify the minimum number of points required to form a cluster
-# min_samples = 2
+# # # Specify the minimum distance between points to be considered part of the same cluster
+# # eps = 100
 
-# # Apply DBSCAN clustering to group the points into clusters
-# dbscan = DBSCAN(eps=eps, min_samples=min_samples)
-# clusters = dbscan.fit_predict(df[['x', 'y']])
+# # # Specify the minimum number of points required to form a cluster
+# # min_samples = 2
 
-
-sil_score_max = -1 #this is the minimum possible score
-
-for n_clusters in range(2,20):
-  model = KMeans(n_clusters = n_clusters, init='k-means++', max_iter=100, n_init=1)
-  labels = model.fit_predict(X)
-  sil_score = silhouette_score(X, labels)
-  print("The average silhouette score for %i clusters is %0.2f" %(n_clusters,sil_score))
-  if sil_score > sil_score_max:
-    sil_score_max = sil_score
-    best_n_clusters = n_clusters
+# # # Apply DBSCAN clustering to group the points into clusters
+# # dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+# # clusters = dbscan.fit_predict(df[['x', 'y']])
 
 
-plt.scatter(df['x'], df['y'], c=clusters)
-plt.tight_layout()
-plt.show()
+# sil_score_max = -1 #this is the minimum possible score
+
+# for n_clusters in range(2,20):
+#   model = KMeans(n_clusters = n_clusters, init='k-means++', max_iter=100, n_init=1)
+#   labels = model.fit_predict(X)
+#   sil_score = silhouette_score(X, labels)
+#   print("The average silhouette score for %i clusters is %0.2f" %(n_clusters,sil_score))
+#   if sil_score > sil_score_max:
+#     sil_score_max = sil_score
+#     best_n_clusters = n_clusters
+
+
+# plt.scatter(df['x'], df['y'], c=clusters)
+# plt.tight_layout()
+# plt.show()

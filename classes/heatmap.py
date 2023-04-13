@@ -25,7 +25,7 @@ class HeatMapGenerator():
             fill=True,
             thresh=0.05,
             alpha=0.4,
-            n_levels=15,
+            n_levels=25,
             cmap='magma',
             # cbar=True,
             ax=self.ax
