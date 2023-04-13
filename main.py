@@ -14,11 +14,11 @@ if __name__ == "__main__":
     
     from classes.logger import CSVLogger
     from classes.heatmap import HeatMapGenerator
+    from classes.sequencer import Sequencer
     import time
 
-    logger = CSVLogger(60)
+    logger = CSVLogger(10)
     # buffer to give the user enough time to start the game
-    time.sleep(1)
 
     while True:
         try:
@@ -28,9 +28,10 @@ if __name__ == "__main__":
             break
 
     #### To generate heatmap
-    # mapper = HeatMapGenerator(logger.filepath, 'data/screen.PNG')
-    # mapper.generateHeatMap()
+    mapper = HeatMapGenerator(logger.filepath, 'data/screen.PNG')
+    mapper.generateHeatMap()
 
     #### To Generate fixation sequences
     # TODO
-
+    seq = Sequencer(logger.filepath, 'data/screen.PNG')
+    seq.generate()

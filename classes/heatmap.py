@@ -10,6 +10,7 @@ class HeatMapGenerator():
     def __init__(self, csvFile: str, screenshotFile: str) -> None:
 
         self.csvFile = csvFile
+        self.saveDir = f'{self.csvFile.strip(".csv")}-Heatmap.png'
         self.df = pd.read_csv(csvFile)
         self.fig, self.ax = plt.subplots()
         self.img = mpimg.imread(screenshotFile)
@@ -37,7 +38,7 @@ class HeatMapGenerator():
                 extent = self.kde.get_xlim() + self.kde.get_ylim(),
                 zorder = 0)
 
-        plt.savefig(f'{self.csvFile.strip(".csv")}.png', bbox_inches='tight', dpi=600, pad_inches=0.04)
+        plt.savefig(self.saveDir, bbox_inches='tight', dpi=600, pad_inches=0.04)
 
 if __name__ == "__main__":
     generator = HeatMapGenerator('data/filename.csv', 'data/screen.PNG')
