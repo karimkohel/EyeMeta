@@ -25,7 +25,7 @@ class HeatMapGenerator():
             y=self.df['y'],
             fill=True,
             thresh=0.05,
-            alpha=0.4,
+            alpha=0.7,
             n_levels=25,
             cmap='magma',
             # cbar=True,

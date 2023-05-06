@@ -28,10 +28,10 @@ if __name__ == "__main__":
             break
 
     #### To generate heatmap
-    mapper = HeatMapGenerator(logger.filepath, 'data/screen.PNG')
+    mapper = HeatMapGenerator(logger.filepath, 'data/screen.jpg')
     mapper.generateHeatMap()
 
-    #### To Generate fixation sequences
-    # TODO
-    seq = Sequencer(logger.filepath, 'data/screen.PNG')
-    seq.generate()
+    # #### To Generate fixation sequences
+    # # TODO
+    # seq = Sequencer(logger.filepath, 'data/screen.PNG')
+    # seq.generate()
