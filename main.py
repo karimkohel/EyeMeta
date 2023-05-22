@@ -17,7 +17,7 @@ if __name__ == "__main__":
     from classes.sequencer import Sequencer
     import time
 
-    logger = CSVLogger(10)
+    logger = CSVLogger(4)
     # buffer to give the user enough time to start the game
 
     while True:
